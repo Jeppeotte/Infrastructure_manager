@@ -1,0 +1,32 @@
+identity:
+  group_id: "group_1"
+  node_id: "EDGE-NODE-003"
+  description: "test"
+  ip: "test"
+
+isa95:
+  enterprise: "AalborgUniversity"
+  site: "AalborgEastCampus"
+  area: "RobotLaboratory"
+  line: "ScrewDrillingCells"
+  cell: "KukaCell"
+
+services:
+  device_services:
+    modbus_tcp:
+      enabled: true
+      devices:
+        - device_id: "modbus_tcp_1"
+          config: "devices/configs/modbus_tcp/plc-001.yaml"
+          tested: true
+        - device_id: test
+          config: devices/configs/string/test.yaml
+          tested: true
+    USB:
+      enabled: false
+      devices: None
+
+  application_services:
+    mqtt_publisher:
+      config: "applications/configs/mqtt-publisher.yaml"
+      enabled: true

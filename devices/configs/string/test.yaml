@@ -1,0 +1,28 @@
+device:
+  - group_id: string
+    node_id: string
+    device_id: test
+    alias: string
+    manufacturer: string
+    model: string
+    protocol_type: string
+    ip: "127.0.0.1"
+    port: 502
+    unit_id: 1
+polling:
+  default_coil_interval: 0.0
+  default_register_interval: 0.0
+holding_registers:
+  - name: string
+    address: 40001
+    data_type: string
+    units: string
+  - name: string2
+    address: 40000
+    data_type: string
+    units: string
+coils:
+  - name: string
+    address: 1
+  - name: string
+    address: 4

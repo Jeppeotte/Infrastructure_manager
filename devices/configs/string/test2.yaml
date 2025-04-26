@@ -1,0 +1,22 @@
+device:
+  group_id: string
+  node_id: string
+  device_id: test2
+  alias: string
+  manufacturer: string
+  model: string
+  protocol_type: string
+  ip: string
+  port: 0
+  unit_id: 0
+polling:
+  default_coil_interval: 0.0
+  default_register_interval: 0.0
+holding_registers:
+  - name: string
+    address: 0
+    data_type: string
+    units: string
+coils:
+  - name: string
+    address: 0
