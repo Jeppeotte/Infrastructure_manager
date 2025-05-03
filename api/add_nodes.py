@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 from fastapi.params import Depends
 from sqlalchemy.orm import Session
 from models.add_nodes import NodeConfig
-from db.db_session import get_db
+from db.db_session import get_postgres_db, get_timescale_db
 from db.db_operations import create_edge_node
 from ruamel.yaml import YAML
 from pathlib import Path
@@ -17,19 +17,21 @@ async def get_configurations():
     return None
 
 @router.post("/create_node")
-async def create_node(config: NodeConfig, db: Session = Depends(get_db)):
-    #Connect to the db and insert the node information
-
+async def create_node(config: NodeConfig,
+                      postgres_db: Session = Depends(get_postgres_db),
+                      timescale_db: Session = Depends(get_timescale_db)):
+    #Connect to the db and insert the information about the new node
     try:
-        # Your CRUD logic uses 'db' internally
-        new_node = create_edge_node(db, config)
+        # Add the node information to the table edge_nodes
+        new_node = create_edge_node(postgres_db, timescale_db, config)
         return {"status": "success", "node_id": new_node.node_id}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.post("/configure_node")
+@router.post("/configure_node")# API for edge node
 async def configure_node(config: NodeConfig):
+    #Configure the metadata on the node which has been added
     try:
         # Define the core directory path for metadata.yaml
         core_path = Path.cwd().joinpath("core")
